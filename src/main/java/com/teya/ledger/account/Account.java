@@ -1,0 +1,32 @@
+package com.teya.ledger.account;
+
+import com.teya.ledger.currency.Currency;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+@Data
+@Entity
+@Table(name = "accounts")
+class Account {
+
+	@Id
+	@UuidGenerator
+	private UUID id;
+
+	private Currency currency;
+
+	private BigDecimal balance;
+
+	static Account of(Currency currency, BigDecimal balance) {
+		Account account = new Account();
+		account.setCurrency(currency);
+		account.setBalance(balance);
+		return account;
+	}
+}
