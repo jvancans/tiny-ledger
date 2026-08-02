@@ -11,7 +11,7 @@ public record TransactionDto(
 		UUID id,
 		@Schema(description = "Timestamp in milliseconds since Epoch of transaction", example = "1785703675904")
 		long timestampMillis,
-		TransactionType transactionType,
+		TransactionType type,
 		@Schema(description = "Amount in transaction", example = "100.00")
 		BigDecimal amount) {
 }
