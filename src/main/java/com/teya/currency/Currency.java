@@ -1,4 +1,4 @@
-package com.teya.ledger.currency;
+package com.teya.currency;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;

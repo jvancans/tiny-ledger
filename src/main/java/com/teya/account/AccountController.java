@@ -1,4 +1,4 @@
-package com.teya.ledger.account;
+package com.teya.account;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

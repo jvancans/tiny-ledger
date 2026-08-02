@@ -1,6 +1,6 @@
-package com.teya.ledger.config;
+package com.teya.config;
 
-import com.teya.ledger.account.AccountNotFound;
+import com.teya.account.AccountNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

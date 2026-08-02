@@ -1,4 +1,4 @@
-package com.teya.ledger.currency;
+package com.teya.currency;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

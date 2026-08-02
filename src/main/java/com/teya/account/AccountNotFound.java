@@ -1,4 +1,4 @@
-package com.teya.ledger.account;
+package com.teya.account;
 
 import java.util.UUID;
 

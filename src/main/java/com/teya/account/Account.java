@@ -1,6 +1,6 @@
-package com.teya.ledger.account;
+package com.teya.account;
 
-import com.teya.ledger.currency.Currency;
+import com.teya.currency.Currency;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
