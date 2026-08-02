@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "accounts")
-class Account {
+public class Account {
 
 	@Id
 	@UuidGenerator

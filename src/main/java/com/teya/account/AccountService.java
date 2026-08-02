@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-class AccountService {
+public class AccountService {
 
 	private final AccountRepository repository;
 
@@ -17,7 +17,7 @@ class AccountService {
 		return repository.findAll();
 	}
 
-	Account get(UUID id) {
+	public Account get(UUID id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new AccountNotFound(id));
 	}
