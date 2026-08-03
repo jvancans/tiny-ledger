@@ -1,4 +1,4 @@
-package com.teya;
+package com.teya.ledger;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

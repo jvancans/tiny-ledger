@@ -1,7 +1,7 @@
-package com.teya.config;
+package com.teya.ledger.config;
 
-import com.teya.currency.Currency;
-import com.teya.transaction.TransactionType;
+import com.teya.ledger.currency.Currency;
+import com.teya.ledger.transaction.TransactionType;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Schema;
 import org.springdoc.core.customizers.OpenApiCustomizer;

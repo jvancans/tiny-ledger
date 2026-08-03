@@ -1,7 +1,7 @@
-package com.teya.transaction;
+package com.teya.ledger.transaction;
 
-import com.teya.account.Account;
-import com.teya.account.AccountService;
+import com.teya.ledger.account.Account;
+import com.teya.ledger.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

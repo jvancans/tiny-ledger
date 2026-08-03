@@ -1,4 +1,4 @@
-package com.teya.transaction;
+package com.teya.ledger.transaction;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.teya.account;
+package com.teya.ledger.account;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

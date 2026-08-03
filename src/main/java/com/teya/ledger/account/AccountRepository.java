@@ -1,4 +1,4 @@
-package com.teya.account;
+package com.teya.ledger.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

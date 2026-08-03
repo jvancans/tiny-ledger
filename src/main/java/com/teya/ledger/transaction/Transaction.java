@@ -1,6 +1,6 @@
-package com.teya.transaction;
+package com.teya.ledger.transaction;
 
-import com.teya.account.Account;
+import com.teya.ledger.account.Account;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.UuidGenerator;
