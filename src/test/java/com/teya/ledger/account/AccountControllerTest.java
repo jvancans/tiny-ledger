@@ -13,71 +13,70 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountControllerTest {
 
-	@Mock
-	private AccountService service;
+    @Mock
+    private AccountService service;
 
-	@InjectMocks
-	private AccountController controller;
+    @InjectMocks
+    private AccountController controller;
 
-	@Test
-	void listAccounts_ShouldReturnOk() {
-		Account account = Account.of(Currency.EURO, BigDecimal.TEN);
-		account.setId(UUID.randomUUID());
-		when(service.list()).thenReturn(List.of(account));
+    @Test
+    void listAccounts_ShouldReturnOk() {
+        Account account = Account.of(Currency.EURO, BigDecimal.TEN);
+        account.setId(UUID.randomUUID());
+        when(service.list()).thenReturn(List.of(account));
 
-		ResponseEntity<AccountsResponseDto> response = controller.listAccounts();
+        ResponseEntity<AccountsResponseDto> response = controller.listAccounts();
 
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertNotNull(response.getBody());
-		assertEquals(1, response.getBody().accounts().size());
-		assertEquals(account.getId(), response.getBody().accounts().get(0).id());
-		verify(service, times(1)).list();
-	}
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().accounts()).hasSize(1);
+        assertThat(response.getBody().accounts().get(0).id()).isEqualTo(account.getId());
+        verify(service).list();
+    }
 
-	@Test
-	void getAccount_ShouldReturnOk() {
-		UUID id = UUID.randomUUID();
-		Account account = Account.of(Currency.EURO, BigDecimal.TEN);
-		account.setId(id);
-		when(service.get(id)).thenReturn(account);
+    @Test
+    void getAccount_ShouldReturnOk() {
+        UUID id = UUID.randomUUID();
+        Account account = Account.of(Currency.EURO, BigDecimal.TEN);
+        account.setId(id);
+        when(service.get(id)).thenReturn(account);
 
-		ResponseEntity<AccountDto> response = controller.getAccount(id);
+        ResponseEntity<AccountDto> response = controller.getAccount(id);
 
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertNotNull(response.getBody());
-		assertEquals(id, response.getBody().id());
-		verify(service, times(1)).get(id);
-	}
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().id()).isEqualTo(id);
+        verify(service).get(id);
+    }
 
-	@Test
-	void createAccount_ShouldReturnCreated() {
-		AccountRequestDto request = new AccountRequestDto(Currency.EURO);
-		Account account = Account.of(Currency.EURO, BigDecimal.ZERO);
-		account.setId(UUID.randomUUID());
-		when(service.save(request)).thenReturn(account);
+    @Test
+    void createAccount_ShouldReturnCreated() {
+        AccountRequestDto request = new AccountRequestDto(Currency.EURO);
+        Account account = Account.of(Currency.EURO, BigDecimal.ZERO);
+        account.setId(UUID.randomUUID());
+        when(service.save(request)).thenReturn(account);
 
-		ResponseEntity<AccountDto> response = controller.createAccount(request);
+        ResponseEntity<AccountDto> response = controller.createAccount(request);
 
-		assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		assertNotNull(response.getBody());
-		assertEquals(account.getId(), response.getBody().id());
-		verify(service, times(1)).save(request);
-	}
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().id()).isEqualTo(account.getId());
+        verify(service).save(request);
+    }
 
-	@Test
-	void removeAccount_ShouldReturnNoContent() {
-		UUID id = UUID.randomUUID();
+    @Test
+    void removeAccount_ShouldReturnNoContent() {
+        UUID id = UUID.randomUUID();
+        
+        ResponseEntity<Void> response = controller.removeAccount(id);
 
-		ResponseEntity<Void> response = controller.removeAccount(id);
-
-		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-		verify(service, times(1)).delete(id);
-	}
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        verify(service).delete(id);
+    }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -32,9 +32,8 @@ class AccountServiceTest {
 
 		List<Account> result = service.list();
 
-		assertEquals(1, result.size());
-		assertEquals(account, result.get(0));
-		verify(repository, times(1)).findAll();
+		assertThat(result).containsExactly(account);
+		verify(repository).findAll();
 	}
 
 	@Test
@@ -45,8 +44,8 @@ class AccountServiceTest {
 
 		Account result = service.get(id);
 
-		assertEquals(account, result);
-		verify(repository, times(1)).findById(id);
+		assertThat(result).isEqualTo(account);
+		verify(repository).findById(id);
 	}
 
 	@Test
@@ -55,7 +54,7 @@ class AccountServiceTest {
 		when(repository.findById(id)).thenReturn(Optional.empty());
 
 		assertThrows(AccountNotFound.class, () -> service.get(id));
-		verify(repository, times(1)).findById(id);
+		verify(repository).findById(id);
 	}
 
 	@Test
@@ -66,8 +65,8 @@ class AccountServiceTest {
 
 		Account result = service.save(request);
 
-		assertEquals(account, result);
-		verify(repository, times(1)).save(any(Account.class));
+		assertThat(result).isEqualTo(account);
+		verify(repository).save(any(Account.class));
 	}
 
 	@Test
@@ -78,7 +77,7 @@ class AccountServiceTest {
 
 		service.delete(id);
 
-		verify(repository, times(1)).findById(id);
-		verify(repository, times(1)).delete(account);
+		verify(repository).findById(id);
+		verify(repository).delete(account);
 	}
 }
