@@ -2,7 +2,6 @@ package com.teya.ledger;
 
 import com.jayway.jsonpath.JsonPath;
 import com.teya.ledger.currency.Currency;
-import com.teya.ledger.transaction.TransactionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,29 +96,25 @@ class LedgerApplicationTests {
 
 	@Test
 	void shouldCreateDepositTransactionAndIncreaseBalance() {
-		BigDecimal amount = BigDecimal.valueOf(1000.99);
-		assertTransactionUpdatesBalance(TransactionType.DEPOSIT, amount, amount);
+		assertTransactionUpdatesBalance(BigDecimal.valueOf(1000.99));
 	}
 
 	@Test
 	void shouldCreateWithdrawalTransactionAndIncreaseBalance() {
-		BigDecimal amount = BigDecimal.valueOf(999.99);
-		assertTransactionUpdatesBalance(TransactionType.WITHDRAWAL, amount, BigDecimal.ZERO.subtract(amount));
+		assertTransactionUpdatesBalance(BigDecimal.valueOf(-999.99));
 	}
 
-	private void assertTransactionUpdatesBalance(TransactionType type, BigDecimal amount, BigDecimal expectedBalance) {
+	private void assertTransactionUpdatesBalance(BigDecimal amount) {
 		String accountId = createNewEuroAccount();
-		int transactionCode = type.getCode();
 
 		client.post().uri("/api/v1/accounts/{id}/transactions", accountId)
 				.body("""
-						{ "type": %s, "amount": %s }
-						""".formatted(transactionCode, amount))
+						{ "amount": %s }
+						""".formatted(amount))
 				.exchange()
 				.expectStatus().isCreated()
 				.expectBody()
 				.jsonPath("$.id").exists()
-				.jsonPath("$.type").isEqualTo(transactionCode)
 				.jsonPath("$.amount").isEqualTo(amount)
 				.jsonPath("$.timestampMillis").exists();
 
@@ -129,7 +124,7 @@ class LedgerApplicationTests {
 				.expectBody()
 				.jsonPath("$.id").isEqualTo(accountId)
 				.jsonPath("$.currency").isEqualTo(EURO_ISO_NUMBER)
-				.jsonPath("$.balance").isEqualTo(expectedBalance);
+				.jsonPath("$.balance").isEqualTo(amount);
 	}
 
 	private String createNewEuroAccount() {

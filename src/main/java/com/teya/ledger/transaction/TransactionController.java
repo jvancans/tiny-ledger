@@ -31,7 +31,6 @@ public class TransactionController {
 	private TransactionDto toDto(Transaction transaction) {
 		return new TransactionDto(transaction.getId(),
 				transaction.getTimestampMillis(),
-				transaction.getType(),
 				transaction.getAmount());
 	}
 }

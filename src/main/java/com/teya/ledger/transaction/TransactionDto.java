@@ -11,7 +11,6 @@ public record TransactionDto(
 		UUID id,
 		@Schema(description = "Timestamp of transaction in milliseconds since Epoch", example = "1785703675904")
 		long timestampMillis,
-		TransactionType type,
-		@Schema(description = "Amount in transaction", example = "100.00")
+		@Schema(description = "Amount in transaction. Withdrawal is reflected as negative value", examples = {"100.00", "-9.50"})
 		BigDecimal amount) {
 }

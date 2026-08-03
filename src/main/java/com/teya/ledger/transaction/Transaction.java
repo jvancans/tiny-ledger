@@ -23,15 +23,12 @@ public class Transaction {
 
 	private long timestampMillis;
 
-	private TransactionType type;
-
 	private BigDecimal amount;
 
-	static Transaction of(Account account, TransactionType type, BigDecimal amount) {
+	static Transaction of(Account account, BigDecimal amount) {
 		Transaction transaction = new Transaction();
 		transaction.setAccount(account);
 		transaction.setTimestampMillis(Instant.now().toEpochMilli());
-		transaction.setType(type);
 		transaction.setAmount(amount);
 		return transaction;
 	}

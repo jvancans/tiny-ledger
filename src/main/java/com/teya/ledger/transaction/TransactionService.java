@@ -23,14 +23,10 @@ class TransactionService {
 
 	public Transaction save(UUID accountId, TransactionRequestDto request) {
 		Account account = accountService.get(accountId);
-		TransactionType transactionType = request.type();
 		BigDecimal transactionAmount = request.amount();
 
 		BigDecimal currentAccountBalance = account.getBalance();
-		switch (transactionType) {
-			case DEPOSIT -> account.setBalance(currentAccountBalance.add(transactionAmount));
-			case WITHDRAWAL -> account.setBalance(currentAccountBalance.subtract(transactionAmount));
-		}
-		return repository.save(Transaction.of(account, transactionType, transactionAmount));
+		account.setBalance(currentAccountBalance.add(transactionAmount));
+		return repository.save(Transaction.of(account, transactionAmount));
 	}
 }
