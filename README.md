@@ -20,13 +20,11 @@
   - negative amount (< 0) reflects withdrawal
 - `Transaction` updates account balance
 
-# Getting started
-
 ## Endpoints (supports application/json media types)
 - Swagger UI - http://localhost:8080/swagger-ui/index.html
 - API docs - http://localhost:8080/v3/api-docs (if you prefer your own Swagger UI)
 
-# Getting started
+## Getting started
 
 1. Get default account
 ```bash
@@ -46,6 +44,11 @@ curl -X 'POST' \
 ```
 
 Full set of APIs available in Swagger UI
+
+## Requirement completion
+- "Ability to record money movements" is supported via Transaction API `POST /api/v1/accounts/{accountId}/transactions`
+- "View current balance" is supported via Account API `GET /api/v1/accounts/{accountId}`
+- "View transaction history" is supported via Transaction API `GET /api/v1/accounts/{accountId}/transactions`
 
 ## Additional notes
 - For IDE support, Lombok plugin is required
