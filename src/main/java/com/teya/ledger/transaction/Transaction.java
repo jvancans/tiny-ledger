@@ -21,8 +21,10 @@ public class Transaction {
 	@JoinColumn(name = "account_id", nullable = false)
 	private Account account;
 
+	@Column(name = "timestamp_millis")
 	private long timestampMillis;
 
+	@Column(name = "amount")
 	private BigDecimal amount;
 
 	static Transaction of(Account account, BigDecimal amount) {

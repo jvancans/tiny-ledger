@@ -1,6 +1,7 @@
 package com.teya.ledger.account;
 
 import com.teya.ledger.currency.Currency;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -19,8 +20,10 @@ public class Account {
 	@UuidGenerator
 	private UUID id;
 
+	@Column(name = "currency_iso_number")
 	private Currency currency;
 
+	@Column(name = "balance")
 	private BigDecimal balance;
 
 	static Account of(Currency currency, BigDecimal balance) {
