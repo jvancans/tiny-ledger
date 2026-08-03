@@ -1,5 +1,6 @@
 package com.teya.ledger.account;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class AccountController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AccountDto> getAccount(@PathVariable UUID id) {
+	public ResponseEntity<AccountDto> getAccount(@PathVariable @Schema(example = "ce58d887-2a59-4dc1-a83a-0d74ea642a71") UUID id) {
 		return ResponseEntity.ok(toDto(service.get(id)));
 	}
 
@@ -41,7 +42,7 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> removeAccount(@PathVariable UUID id) {
+	public ResponseEntity<Void> removeAccount(@PathVariable @Schema(example = "ce58d887-2a59-4dc1-a83a-0d74ea642a71") UUID id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
