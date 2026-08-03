@@ -26,7 +26,7 @@ public class Account {
 	@Column(name = "balance")
 	private BigDecimal balance;
 
-	static Account of(Currency currency, BigDecimal balance) {
+	public static Account of(Currency currency, BigDecimal balance) {
 		Account account = new Account();
 		account.setCurrency(currency);
 		account.setBalance(balance);
