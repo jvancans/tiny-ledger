@@ -38,7 +38,7 @@ public class AccountController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AccountDto> createAccount(@RequestBody @Valid AccountRequestDto request) {
+	public ResponseEntity<AccountDto> createAccount(@Valid @RequestBody AccountRequestDto request) {
 		Account created = service.save(request);
 		AccountDto account = toDto(created);
 		return new ResponseEntity<>(account, HttpStatus.CREATED);
