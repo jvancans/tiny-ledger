@@ -26,8 +26,8 @@ class TransactionService {
 		Account account = accountService.get(accountId);
 		BigDecimal transactionAmount = request.amount();
 
-		BigDecimal currentAccountBalance = account.getBalance();
-		account.setBalance(currentAccountBalance.add(transactionAmount));
+		accountService.updateAccountBalance(account, transactionAmount);
+
 		return repository.save(Transaction.of(account, transactionAmount));
 	}
 }

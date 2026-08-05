@@ -49,6 +49,17 @@ class AccountServiceTest {
 	}
 
 	@Test
+	void shouldUpdateAccountBalance() {
+		Account account = Account.of(Currency.EURO, BigDecimal.ZERO);
+		BigDecimal transactionAmount = BigDecimal.TEN;
+
+		service.updateAccountBalance(account, transactionAmount);
+
+		assertThat(account.getBalance()).isEqualTo(transactionAmount);
+		verify(repository).save(account);
+	}
+
+	@Test
 	void get_ShouldThrowAccountNotFound_WhenNotExists() {
 		UUID id = UUID.randomUUID();
 		when(repository.findById(id)).thenReturn(Optional.empty());

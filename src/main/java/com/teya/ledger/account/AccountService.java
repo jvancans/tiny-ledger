@@ -22,6 +22,12 @@ public class AccountService {
 				.orElseThrow(() -> new AccountNotFound(id));
 	}
 
+	public void updateAccountBalance(Account account, BigDecimal transactionAmount) {
+		BigDecimal currentAccountBalance = account.getBalance();
+		account.setBalance(currentAccountBalance.add(transactionAmount));
+		repository.save(account);
+	}
+
 	Account save(AccountRequestDto request) {
 		return repository.save(Account.of(request.currency(), BigDecimal.ZERO));
 	}

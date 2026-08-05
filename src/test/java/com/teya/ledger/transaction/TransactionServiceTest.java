@@ -55,10 +55,10 @@ class TransactionServiceTest {
 
 		Transaction result = service.save(accountId, request);
 
-		assertThat(account.getBalance()).isEqualByComparingTo(BigDecimal.valueOf(15));
 		assertThat(result.getAmount()).isEqualByComparingTo(BigDecimal.valueOf(5));
 		assertThat(result.getAccount()).isEqualTo(account);
 		verify(accountService).get(accountId);
+		verify(accountService).updateAccountBalance(account, request.amount());
 		verify(repository).save(any(Transaction.class));
 	}
 }
