@@ -104,6 +104,30 @@ class LedgerApplicationTests {
 		assertTransactionUpdatesBalance(BigDecimal.valueOf(-999.99));
 	}
 
+	@Test
+	void shouldReturnBadRequestResponseWhenTransactionAmountHasTooManyDigits() {
+		assertTransactionRejected("""
+				{ "amount": 10.999 }
+				""", "amount numeric value out of bounds (<10 digits>.<2 digits> expected)");
+	}
+
+	@Test
+	void shouldReturnBadRequestResponseWhenTransactionAmountIsNotANumber() {
+		assertTransactionRejected("""
+				{ "amount": "not-a-number" }
+				""", "Request body is malformed or contains a value of an unexpected type");
+	}
+
+	private void assertTransactionRejected(String requestBody, String expectedMessage) {
+		client.post().uri("/api/v1/accounts/{id}/transactions", DEFAULT_ACCOUNT_ID)
+				.body(requestBody)
+				.exchange()
+				.expectStatus().isBadRequest()
+				.expectBody()
+				.jsonPath("$.message").isEqualTo(expectedMessage)
+				.jsonPath("$.timestampMillis").exists();
+	}
+
 	private void assertTransactionUpdatesBalance(BigDecimal amount) {
 		String accountId = createNewEuroAccount();
 
