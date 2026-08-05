@@ -37,6 +37,7 @@ class TransactionServiceTest {
         List<Transaction> result = service.getTransactions(accountId);
 
         assertThat(result).isEmpty();
+		verify(accountService).get(accountId);
         verify(repository).findAllByAccountId(accountId);
     }
 
@@ -47,7 +48,7 @@ class TransactionServiceTest {
         account.setCurrency(Currency.EURO);
         account.setBalance(BigDecimal.TEN);
         account.setId(accountId);
-        
+
         TransactionRequestDto request = new TransactionRequestDto(BigDecimal.valueOf(5));
         when(accountService.get(accountId)).thenReturn(account);
         when(repository.save(any(Transaction.class))).thenAnswer(invocation -> invocation.getArgument(0));

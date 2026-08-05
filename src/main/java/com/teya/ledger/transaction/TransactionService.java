@@ -18,6 +18,7 @@ class TransactionService {
 
 
 	public List<Transaction> getTransactions(UUID accountId) {
+		accountService.get(accountId); // ensure account exists
 		return repository.findAllByAccountId(accountId);
 	}
 
