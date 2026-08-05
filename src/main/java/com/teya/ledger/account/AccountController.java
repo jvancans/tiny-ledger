@@ -2,9 +2,11 @@ package com.teya.ledger.account;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.UUID;
 @Tag(name = "Accounts")
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/accounts")
+@Validated
 public class AccountController {
 
 	private final AccountService service;
@@ -35,7 +38,7 @@ public class AccountController {
 	}
 
 	@PostMapping
-	public ResponseEntity<AccountDto> createAccount(@RequestBody AccountRequestDto request) {
+	public ResponseEntity<AccountDto> createAccount(@RequestBody @Valid AccountRequestDto request) {
 		Account created = service.save(request);
 		AccountDto account = toDto(created);
 		return new ResponseEntity<>(account, HttpStatus.CREATED);
